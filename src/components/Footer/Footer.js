@@ -29,11 +29,13 @@ const quikLinks = [
 ]
 
 function Footer() {
-  return <footer className='footer' style={{marginTop:290}}>
+  let date = new Date();
+  let year = date.getFullYear();
+  return <footer className='footer' >
       <Container>
         <Row>
         <Col lg='4' md='4' sm='12'>
-        <div className='logo'>
+        <div className='logo footer_logo'>
                   <h1 >
                     <Link to='/home' className='d-flex align-items-center gap-3'> 
                     <i className='ri-car-line'></i>
@@ -50,11 +52,11 @@ function Footer() {
         </Col>
         <Col lg='2' md='4' sm='6'>
               <div className='mb-4'>
-                 <h5 className='footer_link_title'>Quik Links</h5>
+                 <h5 className='footer_link_title '>Quik Links</h5>
                  <ListGroup>
                    {
                       quikLinks.map((item, index) => {
-                        return <ListGroupItem key={index} className='p-0 mt-3'>
+                        return <ListGroupItem key={index} className='p-0 mt-3 quik_link'>
                               <Link to={item.path}>{item.display}</Link>
                         </ListGroupItem>
 
@@ -65,7 +67,7 @@ function Footer() {
         </Col>
         <Col lg='3' md='4' sm='6'>
           <div className='mb-4'>
-          <h5 className='footer_link_title'>Head Office</h5>
+          <h5 className='footer_link_title mb-4'>Head Office</h5>
           <p className='office_info'>Taksim, Istanbul, Turkey</p>
           <p className='office_info'>Phone: +90 850 212 12 12</p>
           <p className='office_info'>Email: info@krmn.com.tr</p>
@@ -81,6 +83,13 @@ function Footer() {
               <span> <i className='ri-send-plane-line'></i> </span>
           </div>
           </div>
+        </Col>
+        <Col lg='12'>
+           <div className='footer_bottom'>
+             <p className='section_description d-flex align-items-center justify-content-center gap-1 pt-4'>
+                   <i className='ri-copyright-line'></i> Copyright {year} Develop by Ayhan Karaman. All rights reserved.
+             </p>
+           </div>
         </Col>
         </Row>
       </Container>

@@ -1,0 +1,74 @@
+.footer{
+    background: #008080;
+    padding-top: 50px;
+    padding-bottom: 15px;
+}
+
+.footer_logo i{
+    color: #fff;
+    font-weight: 400;
+}
+.footer_logo span{
+    color: #fff;
+    font-weight: 500;
+}
+
+.footer_logo_content{
+    color: rgba(255, 255, 255, 0.715);
+    margin-top: 15px;
+    line-height: 30px;
+}
+
+.footer_link_title{
+    color: #fff;
+}
+
+.quik_link{
+   border: none !important;
+    background: transparent !important;
+    
+}
+
+.quik_link a{
+    color: rgba(255, 255, 255, 0.715);
+    text-decoration: none;
+    font-weight: 300;
+    transition: .3s;
+    
+}
+
+.quik_link a:hover{
+    color: #f9a826;
+}
+
+.office_info
+{
+    color: rgba(255, 255, 255, 0.715);
+    font-weight: 300;
+}
+
+.newsletter{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border: 1px solid #7c8a97;
+    border-radius: 50px;
+    background: #025e5ee5;
+}
+.newsletter input{
+    background: transparent;
+    color: #fff;
+    border: none;
+    outline: none;
+}
+.newsletter input::placeholder{
+    color: #fff;
+}
+.newsletter span i{
+    color: #fff;
+}
+
+.footer_bottom{
+    border-top: 1px solid #7c8a97;
+}

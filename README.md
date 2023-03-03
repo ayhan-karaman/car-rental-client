@@ -2,6 +2,18 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## About Project
+
+This project creates the car rental interface from the internet.
+
+## Images
+<details>
+  <summary>Toggle Content</summary>
+
+  ![screen_1](https://user-images.githubusercontent.com/68536015/222756921-5c55ab5e-d4db-42b2-af5a-2464d89e07ef.png)
+  
+</details>
+
 ## Available Scripts
 
 In the project directory, you can run:
