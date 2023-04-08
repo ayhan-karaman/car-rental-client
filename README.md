@@ -1,18 +1,22 @@
+<header> 
+    <h2 align="center">Rent A Service  🚗</h2>
+    <p align="center"> 
+    <img src="https://user-images.githubusercontent.com/68536015/230495117-69fa9d7c-cd3b-411b-a6bc-328631e74de7.png" /> 
+    </p>
+    <hr>
+     <p align="center"> Car Rental project with React UI.</p>
+    <p align="center">
+       🔖 Backend of <a href="https://github.com/ayhan-karaman/Car-Rental-Backend">Car Rental </a> with .Net Core 6.0 
+    </p>
+</header>
+
+<hr/>
+<br/>
+<br/>
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## About Project
-
-This project creates the car rental interface from the internet.
-
-## Images
-<details>
-  <summary>Toggle Content</summary>
-
-  ![screen_1](https://user-images.githubusercontent.com/68536015/222756921-5c55ab5e-d4db-42b2-af5a-2464d89e07ef.png)
-  
-</details>
 
 ## Available Scripts
 

@@ -15,7 +15,7 @@ function Routers() {
      <Route path='/home' element={<Home/> }/>
      <Route path='/about' element={<About /> }/>
      <Route path='/cars' element={<CarListing /> }/>
-     <Route path='/cars/:id' element={<CarDetails/> }/>
+     <Route path='/cars/:car_id' element={<CarDetails/> }/>
      <Route path='/blogs' element={<Blog /> }/>
      <Route path='/blogs/:id' element={<BlogDetails /> }/>
      <Route path='*' element={<NotFound /> }/>

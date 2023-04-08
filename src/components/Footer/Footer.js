@@ -74,7 +74,7 @@ function Footer() {
           <p className='office_info'>Office Time: 10am - 7pm</p>
           </div>
         </Col>
-        <Col lg='3' md='4'>
+        <Col lg='3' md='4' sm='12'>
           <div className='mb-4'>
           <h5 className='footer_link_title'>Newsletter</h5>
           <p className='section_description'>Subscribe our newsletter</p>

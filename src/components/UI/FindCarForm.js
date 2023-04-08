@@ -2,7 +2,7 @@ import React from 'react'
 import '../../styles/FindCarForm.css';
 import { Form, FormGroup } from 'reactstrap';
 function FindCarForm() {
-  return <Form className='form'>
+  return <Form  className='form'>
         <div className='d-flex align-items-center justify-content-between flex-wrap'>
              <FormGroup className='form_group'>
                 <input type="text" placeholder='From address' />

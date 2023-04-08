@@ -72,3 +72,22 @@
 .footer_bottom{
     border-top: 1px solid #7c8a97;
 }
+
+@media only screen and(max-width:768px) {
+    .footer_logo_content{
+        font-size: 0.8rem;
+    }
+    .quik_link, .office_info{
+        font-size: 0.8rem;
+        line-height: 1.5rem;
+    }
+
+    .footer_link_title{
+        font-size: 1rem;
+        margin-top: 15px;
+    }
+
+    .footer_bottom p {
+        font-size: 0.7rem;
+    }
+}

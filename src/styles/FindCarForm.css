@@ -24,9 +24,9 @@
 
 .form_group input{
     width: 100%;
-     border: 1px solid #7c8a97;
-     padding: 8px 12px;
-     outline: none;
+    border: 1px solid #7c8a97;
+    padding: 8px 12px;
+    outline: none;
 }
 .form{
     background: #fff;
@@ -78,4 +78,67 @@
     width: 100%;
     border: none;
     outline: none;
+}
+
+@media only screen and(max-width:992px){
+    .find_cars_left{
+         padding: 65px 22px;  
+    }
+    .find_cars_left h2{
+        font-size: 1.5rem;
+    }
+
+    .form{
+        padding: 30px 10px;
+    }
+    .form_group input, .select_group select{
+        padding: 7px 10px;
+        font-size: 0.8rem;
+    }
+    .hero_form{
+        bottom: -100px;
+    }
+
+}
+
+@media only screen and (max-width:768px)
+{
+     .find_cars_left{
+         padding-top: 20px;
+         padding-bottom: 0;
+         background: #fff;
+         text-align: center;
+     }
+     .form{
+        padding: 20px 10px;
+     }
+}
+
+@media only screen and (max-width:576px)
+{
+     .form_group{
+        width: 100%;
+        margin: auto;
+        margin-bottom: 15px;
+     }
+     .form_group input{
+        font-size: 0.7rem !important;
+     }
+
+     .select_group{
+        width: 100px;
+        padding-right: 10px;
+        font-size: 0.7rem;
+     }
+
+     .find_car_btn{
+        font-size: 0.8rem;
+     }
+
+     .find_cars_left h2{
+        font-size: 1rem;
+     }
+     .hero_form{
+         bottom: -250px;
+     }
 }

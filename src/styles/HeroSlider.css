@@ -29,7 +29,7 @@
 }
 
 .slider_content{
-    padding-top: 150px;
+    margin-top: -70px;;
 }
 .slider_content h1{
     font-size: 3.2rem;
@@ -47,4 +47,29 @@
     text-decoration: none !important;
     color: #008080 !important;
     font-weight: 600;
+}
+
+@media only screen and(max-width:992px) {
+    .slider_item{
+        height: 530px;
+        width: 100%;
+    }
+    .slider_content{
+        margin-top: 100px;
+    }
+    .slider_content h1{
+        font-size: 2rem;
+        
+    }
+}
+
+@media only screen and(max-width:768px){
+    .slider_item{
+        height: 450px;
+    }
+    
+    .slider_content h1{
+        font-size: 1.5rem;
+        
+    }    
 }
