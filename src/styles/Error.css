@@ -1,0 +1,15 @@
+.not_found_content .not-found-message{
+      letter-spacing: 3px;
+      font-size: 1.3rem;
+}
+
+.not_found_content a {
+     text-decoration: none;
+     color: #008080;
+}
+.not_found_content a i{
+    color: #f9a826;
+    font-weight: 500;
+    font-size: 1.2rem;
+ 
+}

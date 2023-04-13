@@ -7,6 +7,7 @@ import CarDetails from '../pages/CarDetails'
 import Blog from '../pages/Blog'
 import BlogDetails from '../pages/BlogDetails'
 import NotFound from '../pages/NotFound'
+import Contact from '../pages/Contact'
 
 
 function Routers() {
@@ -17,7 +18,8 @@ function Routers() {
      <Route path='/cars' element={<CarListing /> }/>
      <Route path='/cars/:car_id' element={<CarDetails/> }/>
      <Route path='/blogs' element={<Blog /> }/>
-     <Route path='/blogs/:id' element={<BlogDetails /> }/>
+     <Route path='/blogs/:blog_id' element={<BlogDetails /> }/>
+     <Route path='/contact' element={<Contact /> }/>
      <Route path='*' element={<NotFound /> }/>
 
   </Routes>

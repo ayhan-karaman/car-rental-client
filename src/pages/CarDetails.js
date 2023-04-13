@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { getByIdCar } from '../services/carService'
 import { Container, Row, Col } from 'reactstrap'
@@ -10,11 +10,15 @@ import PaymentMethod from '../components/UI/PaymentMethod'
 function CarDetails() {
   const { car_id } = useParams();
 
-
   const {isLoading, data} = useQuery(["car", car_id], ()=>(getByIdCar(car_id)))
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [data])
+
   if(isLoading)  return <h1>Bir hata Oluştu</h1>
 
-
+ 
+  
   return <Helmet title={data.data.brandName + " " + data.data.modelName}>
         <section>
             <Container>
