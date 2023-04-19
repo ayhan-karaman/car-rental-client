@@ -2,7 +2,7 @@ import React from 'react'
 import HeroSlider from '../components/UI/HeroSlider';
 import Helmet from '../components/Helmet/Helmet';
 import FindCarForm from '../components/UI/FindCarForm';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Button, Spinner } from 'reactstrap';
 import AboutSection from '../components/UI/AboutSection';
 import ServicesList from '../components/UI/ServicesList';
 import CarItem from '../components/UI/CarItem';
@@ -11,7 +11,7 @@ import { useQuery} from 'react-query'
 import BecomeDriverSection from '../components/UI/BecomeDriverSection';
 import Testimonial from '../components/UI/Testimonial';
 import BlogList from '../components/UI/BlogList';
-
+import toastr from 'toastr';
 
 function Home() {
    const {isLoading, data} = useQuery("general:Models", getAllCars)
@@ -19,8 +19,11 @@ function Home() {
   
   
   
-  if(isLoading) return <h3>Bir Hata Oluştu</h3>
-  console.log()
+  if(isLoading) return <div className="d-flex  p-lg-5 justify-content-center align-items-center flex-column">
+                     <Spinner className='mt-4 mb-5' animation="grow" style={{color:'#008080'}} />
+                     <h4  className="visually">Loading...</h4>
+</div>;
+
   return <Helmet title={'Home Page'}>
         {/* ======== her section ======== */}
         <section className="p-0 hero_slider_section">
@@ -65,9 +68,10 @@ function Home() {
                         <h2 className="section_title">Hot Offers</h2>
                   </Col>
                    {
+                      
                         data.data.map((item) => {
                          return <CarItem item={item} key={item.modelId} />
-                       })
+                       }) 
                    }
                 </Row>
              </Container>

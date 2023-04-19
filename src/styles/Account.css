@@ -1,0 +1,88 @@
+.shadow {
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+.profile-tab-nav {
+	min-width: 250px;
+}
+
+.tab-content {
+	flex: 1;
+}
+
+.form-group {
+	margin-bottom: 1.5rem;
+}
+.nav-pills a.nav-link {
+	padding: 15px 20px;
+	border-bottom: 1px solid #ddd;
+	border-radius: 0;
+	color: #333;
+    
+}
+
+.nav-pills a.nav-link i {
+	width: 20px;
+}
+.img-circle{
+    position: relative;
+}
+.img-circle img {
+	height: 100px;
+	width: 100px;
+	border-radius: 100%;
+	border: 5px solid #fff;
+    opacity: .8;
+ 
+}
+
+.account_btn, .account_btn_cancel{
+    outline: none !important;
+    border: none !important;
+    color: #fff !important;
+} 
+.account_btn{
+    background: #008080 !important;
+}
+.account_btn_cancel{
+    background: #f9a826 !important;
+}
+.account_btn_cancel:hover{
+    background: #f9a826 !important;
+}
+
+.account_active{
+    background: #008080 !important;
+    color: #fff !important;
+}
+
+
+.img-edit{
+    position: relative;
+}
+.img-form{
+     width: 100%;
+     height: 100%;
+     top: 10px;
+     display: flex;
+     justify-content: end;
+     align-items: end;
+     position: absolute;
+  
+
+}
+ input[type="file"]{
+   display: none !important;
+    
+}
+form label.file-icon {
+   cursor: pointer;
+   margin-right: 7%;
+}
+ label.file-icon i{
+    color: antiquewhite;
+    background: #008080;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 1.8rem;
+}

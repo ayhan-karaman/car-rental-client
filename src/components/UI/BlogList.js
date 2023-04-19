@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col } from 'reactstrap';
+import { Col, Spinner } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import '../../styles/BlogItem.css';
 import { useQuery } from 'react-query';
@@ -11,7 +11,10 @@ function BlogList() {
   const {isLoading, data} = useQuery("general:Blogs", getAllBlogs)
 
 
-  if(isLoading) return <h3>Bir Hata Oluştu</h3>
+  if(isLoading) return <div className="d-flex  p-lg-5 justify-content-center align-items-center flex-column">
+                <Spinner className='mt-4 mb-5' animation="grow" style={{color:'#008080'}} />
+                <h4  className="visually">Loading...</h4>
+          </div>;
 
   return <>
           {

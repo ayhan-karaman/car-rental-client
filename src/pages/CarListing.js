@@ -1,10 +1,11 @@
 import React from 'react'
 import Helmet from '../components/Helmet/Helmet';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Button, Spinner } from 'reactstrap';
 import CommonSeciton from '../components/UI/CommonSection';
 import CarItem from '../components/UI/CarItem';
 import { getAllCars } from '../services/carService'
 import { useQuery} from 'react-query'
+
 
 
 function CarListing() {
@@ -13,7 +14,10 @@ function CarListing() {
   
   
   
-  if(isLoading) return <h3>Bir Hata Oluştu</h3>
+  if(isLoading) return <div className="d-flex  p-lg-5 justify-content-center align-items-center flex-column">
+                    <Spinner className='mt-4 mb-5' animation="grow" style={{color:'#008080'}} />
+                    <h4  className="visually">Loading...</h4>
+               </div>;
 
   return <Helmet title={'Cars Page'}>
          <CommonSeciton title='Car Listing' />
@@ -31,10 +35,10 @@ function CarListing() {
                             </select>
                         </div>
                    </Col>
-                   {
+                   { 
                         data.data.map((item) => {
                          return <CarItem item={item} key={item.modelId} />
-                       })
+                       }) 
                    }
                 </Row>
              </Container>

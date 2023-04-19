@@ -1,7 +1,9 @@
-import React, {useRef} from 'react'
-import {Container, Row, Col } from 'reactstrap';
-import {Link, NavLink} from 'react-router-dom';
+import React, {useRef, useState} from 'react'
+import {Container, Row, Col, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import {Link, NavLink, useNavigate} from 'react-router-dom';
 import '../../styles/Header.css'
+import { useAuth } from '../../contexts/AuthContext'
+import { toast } from 'react-toastify';
 
 const navLinks = [
    {
@@ -28,6 +30,21 @@ const navLinks = [
 ]
 
 function Header() {
+  const { loggedIn, user, logout} = useAuth()
+
+  
+  let navigate = useNavigate();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggle = () => setDropdownOpen((prevState) => !prevState);
+
+  const handleLogout = async ()=>{
+     logout(()=>{
+       navigate("/");
+       toast.warn("Çıkış yapıldı")
+     })
+  }
+
   const menuRef = useRef(null)
   const toggleMenu = () => menuRef.current.classList.toggle('menu_active')
   return <header className='header'>
@@ -44,10 +61,48 @@ function Header() {
              </div>
           </Col>
           <Col lg="6" md="6" sm="6">
-            <div className='header_top_right d-flex align-items-center justify-content-end gap-3'>
-              <Link to='#' className='d-flex align-items-center gap-1'><i className="ri-login-circle-line"></i> Login</Link>
-              <Link to='#' className='d-flex align-items-center gap-1'><i className="ri-user-line"></i> Register</Link>
-            </div>
+            {
+               !loggedIn &&
+                <div className='header_top_right d-flex align-items-center justify-content-end gap-3'>
+                  <Link to='/auth/login' className='d-flex align-items-center gap-1'><i className="ri-login-circle-line"></i> Login</Link>
+                  <Link to='/auth/register' className='d-flex align-items-center gap-1'><i className="ri-user-line"></i> Register</Link>
+              </div>
+            }
+            {
+                loggedIn &&
+
+                <div className="header_top_right d-flex align-items-center justify-content-end">
+                  <Dropdown className='header_dropdown' isOpen={dropdownOpen} toggle={toggle}>
+                        <DropdownToggle className='header_dropdown_toggle'  caret >
+                        {!dropdownOpen && 
+                        <>
+                         <img className='mx-1 rounded-circle p-0' title={user.data.firstName + ' ' + user.data.lastName}  
+                         src={`${process.env.REACT_APP_BASE_ENDPOINT}` + user.data.imageUrl}  alt="" width={25} />
+                        </>
+                        }
+                        </DropdownToggle>
+                        <DropdownMenu >
+                          <DropdownItem className='section_title d-flex justify-content-between dropdown_item' header>
+                            <span className='mt-1'>{user.data.firstName} {user.data.lastName}</span>
+                            <img className='mb-1 rounded-circle' src={`${process.env.REACT_APP_BASE_ENDPOINT}` + user.data.imageUrl} alt="" width={25}/>
+                          </DropdownItem>
+                          <DropdownItem className='dropdown_profile section_description dropdown_item'>
+                            <Link  className='d-flex justify-content-between text-dark' to={`/profile/${user.data.email}`} >Profile <i className="ri-profile-line"></i></Link>
+                          </DropdownItem>
+                          <DropdownItem className='dropdown_profile section_description dropdown_item'>
+                            <Link  className='d-flex justify-content-between text-dark' to={`/account/${user.data.email}/profile`} >Account <i className="ri-settings-4-line"></i></Link>
+                          </DropdownItem>
+                          <DropdownItem 
+                              className='d-flex justify-content-between dropdown_logout section_description dropdown_item'
+                              onClick={handleLogout}>
+                              Logout  <i className="ri-logout-circle-line"></i>
+                          </DropdownItem>
+
+
+                        </DropdownMenu>
+                </Dropdown>
+                </div>
+            }
           </Col>
         </Row>
       </Container>

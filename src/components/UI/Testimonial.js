@@ -7,8 +7,9 @@ import { useQuery } from 'react-query';
 
 function Testimonial() {
     const {isLoading, data} = useQuery("general:Testimonials", getAllTestimonials)
+
     if(isLoading) return <h3>Bir Hata Oluştu</h3>
-    console.log(data.data);
+
     const settings = {
         dots:true,
         infinite:true,
@@ -47,7 +48,7 @@ function Testimonial() {
                return  <div key={item.id} className="testimonial py-4 px-3">
                 <p className="section_description"> {item.comment} </p>
                 <div className="mt-3 d-flex align-items-center gap-4">
-                        <img src={ava1} alt="" className='w-25 h-25 rounded-2'/>
+                        <img src={`${process.env.REACT_APP_BASE_ENDPOINT}` + item.clientImage}  alt="" className='w-25 h-25 rounded-2'/>
                         <div>
                             <h6 className="mb-0 mt-3"> {item.client} </h6>
                             <p className="section_description"> Customer </p>

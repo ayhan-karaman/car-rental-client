@@ -1,0 +1,26 @@
+.sign_content{
+    min-height: 80vh;
+}
+
+.sign_btn{
+    background: #008080 !important;
+    color: #fff !important;
+}
+
+.section_description a{
+    color: #f9a826;
+}
+
+.section_description a:hover{
+    color: #f9a826 ;
+    
+}
+
+
+
+
+@media only screen and (max-width:922px) {
+    .account_route p {
+        text-align:center !important;
+    }
+}
