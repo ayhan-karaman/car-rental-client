@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, {  useState } from 'react'
 import Helmet from '../components/Helmet/Helmet'
-import { Col, Container, Form, FormGroup, Input, Row, Toast } from 'reactstrap'
-import { Link, useNavigate } from 'react-router-dom'
+import { Col, Container, Form, FormGroup, Input, Row } from 'reactstrap'
+import { Link,  useNavigate, useLocation } from 'react-router-dom'
 import lgnImage from '../assets/images/car-3.png'
 import { useAuth } from '../contexts/AuthContext'
 import { userLogin } from '../services/auth'
@@ -12,7 +12,9 @@ function Login() {
   const {login} =useAuth();
   const navigete = useNavigate();
   const [form, setForm] = useState({emailOrUserName:'', password:''});
-  
+  const location = useLocation();
+   
+
   const onChangeInput = (e) => {
         setForm({...form, [e.target.name] : e.target.value})
   }
@@ -21,11 +23,11 @@ function Login() {
     e.preventDefault();
     try {
            const response = await userLogin({emailOrUserName:form.emailOrUserName, password:form.password});
-           
            login({...response, emailOrUserName:form.emailOrUserName});
-          navigete("/");
-          toast.success("Giriş Yapıldı")
-    } catch (error) {
+           toast.success("Giriş Yapıldı")
+           return navigete(location.state?.preUrl ? location.state.preUrl : "/")  
+          
+    } catch (error) { 
             navigete('/auth/login');
             toast.error(error.response.data)
     }

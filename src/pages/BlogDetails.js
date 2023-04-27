@@ -16,7 +16,6 @@ function BlogDetails() {
   const singleBlog = useQuery(['blog', blog_id], ()=> (getByBlogId(blog_id)));
   const blogs = useQuery('blogs', () => (getAllBlogs()))
   
-  
 
  
   useEffect(() => {

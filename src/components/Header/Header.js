@@ -1,9 +1,9 @@
 import React, {useRef, useState} from 'react'
 import {Container, Row, Col, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import {Link, NavLink, useNavigate} from 'react-router-dom';
-import '../../styles/Header.css'
 import { useAuth } from '../../contexts/AuthContext'
 import { toast } from 'react-toastify';
+import '../../styles/Header.css';
 
 const navLinks = [
    {

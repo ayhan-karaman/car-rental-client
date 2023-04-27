@@ -18,6 +18,19 @@ export const dateFormat = (dateTime) => {
          time:  `${hour}:${minute}`
     }
 }
+export const initialDate = (day) =>{
+        var today = new Date();
+        today.setDate(today.getDate() + day)
+        return today.toISOString().slice(0, 16) 
+}
+export const totalRentDayResult = (rentEndDate, rentStartDate) => {
+        var date1 = new Date(rentEndDate.toString());
+        var date2 = new Date(rentStartDate.toString());
+        var difference = date1.getTime() - date2.getTime();
+        var numberOfDays = Math.ceil(difference / (1000 * 3600 * 24)); 
+        return numberOfDays;
+}
+
 
 export const socialLinks = [
     {
