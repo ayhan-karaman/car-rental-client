@@ -19,8 +19,10 @@
 }
 .row-content .input-title, input
 {
+    box-shadow: none !important;
     font-size: .9rem;
     color: #7c8a97;
+    height: 28px;
 }
 .row-content a{
     text-decoration: none;
@@ -36,4 +38,10 @@
     color: #fff !important;
     width: 100%;
     margin-top: 1.8rem;
+}
+
+.select_card{
+    border: 1px solid rgba(46, 186, 102, 0.7);
+    box-shadow: 0.7px 0.7px 9px 1px rgba(46, 186, 102, 0.7);
+    transition: .3s;
 }

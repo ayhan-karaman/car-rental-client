@@ -15,7 +15,15 @@
     color: #f9a826 ;
     
 }
+.eye_content i{
+    font-size: 1rem;
+    color: #008080;
+}
 
+ .auth_input{
+     
+     padding: 8px !important;
+}
 
 
 
