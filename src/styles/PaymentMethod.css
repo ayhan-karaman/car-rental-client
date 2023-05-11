@@ -1,4 +1,4 @@
-.row-content{
+.row-content-payment{
     border: 1px solid rgba(0, 0, 0, 0.137);
     outline: none;
     width: 100%;
@@ -9,7 +9,7 @@
     margin: 1vh 0;
     overflow: hidden;
 }
- .row-content input{
+ .row-content-payment input{
      
       outline: none !important;
       border: none !important;
@@ -17,19 +17,19 @@
       
 
 }
-.row-content .input-title, input
+.row-content-payment .input-title, input
 {
     box-shadow: none !important;
     font-size: .9rem;
     color: #7c8a97;
     height: 28px;
 }
-.row-content a{
+.row-content-payment a{
     text-decoration: none;
     color: #008080;
 }
 
-.row-content a:hover{
+.row-content-payment a:hover{
     color: #008080;
 }
 

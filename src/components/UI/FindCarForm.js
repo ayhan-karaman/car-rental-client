@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../styles/FindCarForm.css';
 import { Form, FormGroup } from 'reactstrap';
+import { initialDate } from '../../tool';
 function FindCarForm() {
+    const [dateTime, setDateTime] = useState({time:'', date:''})
+   
+    useEffect(()=>{
+         setDateTime({
+               date:initialDate(0).slice(0, 10),
+               time:initialDate(0).slice(11, 16)
+         })
+    },[])
+
   return <Form  className='form'>
         <div className='d-flex align-items-center justify-content-between flex-wrap'>
              <FormGroup className='form_group'>
@@ -11,10 +21,10 @@ function FindCarForm() {
                 <input type="text" placeholder='To address' />
              </FormGroup>
              <FormGroup className='form_group'>
-                <input className='journey_date' type="date" placeholder='Journey date' />
+                <input className='journey_date' type="date" min={dateTime.date}  defaultValue={dateTime.date}   placeholder='Journey date' />
              </FormGroup>
              <FormGroup className='form_group'>
-                <input className='journey_time' type="time" placeholder='Journey time' />
+                <input className='journey_time'  defaultValue={dateTime.time} type="time" placeholder='Journey time' />
              </FormGroup>
              <FormGroup className='select_group'>
                 <select >

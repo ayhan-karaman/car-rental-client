@@ -71,7 +71,7 @@
   
 
 }
- input[type="file"]{
+ .file_change{
    display: none !important;
     
 }

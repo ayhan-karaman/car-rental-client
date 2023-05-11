@@ -18,10 +18,10 @@ export const dateFormat = (dateTime) => {
          time:  `${hour}:${minute}`
     }
 }
-export const initialDate = (day) =>{
+export const initialDate = (day=0 ) =>{
         var today = new Date();
         today.setDate(today.getDate() + day)
-        return today.toISOString().slice(0, 16) 
+        return today.toISOString().slice(0, 10) +" " + new Date().toLocaleTimeString('tr-TR').slice(0, 5)
 }
 export const totalRentDayResult = (rentEndDate, rentStartDate) => {
         var date1 = new Date(rentEndDate.toString());

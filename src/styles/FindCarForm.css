@@ -23,14 +23,16 @@
 }
 
 .form_group input{
-    width: 100%;
+    width: 100% !important;
     border: 1px solid #7c8a97;
-    padding: 8px 12px;
+    padding: 8px 12px !important;
     outline: none;
+    font-size: .9rem;
 }
 .form{
     background: #fff;
     padding: 55px 15px 50px 15px;
+    
 }
 
 .select_group{
@@ -65,11 +67,12 @@
 }
 
 
-.journey_time::before{
+/* .journey_time::before{
     content: 'Journey Time';
     margin-right: 0.8rem;
     color: #7c8a97;
-}
+    padding: .7rem;
+} */
 
 .find_car_btn{
     background: #008080 !important;

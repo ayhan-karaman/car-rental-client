@@ -1,0 +1,15 @@
+.btn{
+     
+     outline: none;
+     border: none;
+}
+.clear_btn{
+    background: #f9a826 !important;
+}
+.clear_btn:hover{
+    background: #f9a826 !important;
+}
+
+.filtered_btn{
+    background: #008080;
+}

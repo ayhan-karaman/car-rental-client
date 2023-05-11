@@ -14,7 +14,7 @@ import BlogList from '../components/UI/BlogList';
 import toastr from 'toastr';
 
 function Home() {
-   const {isLoading, data} = useQuery("general:Models", getAllCars)
+   const {isLoading, data} = useQuery("general:Models", ()=>(getAllCars("all-models")))
 
   
   

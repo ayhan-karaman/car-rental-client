@@ -59,7 +59,7 @@ function ProfileSettings() {
                   <div className="img-form">
                         <Label htmlFor='avatar' className="file-icon">
                               <i className="ri-image-edit-fill fs-5"></i>
-                              <Input onChange={handleChangeFile} name='file' type='file' id='avatar' />
+                              <Input className='file_change' onChange={handleChangeFile} name='file' type='file' id='avatar' />
                         </Label>
                   </div>
                 </Col>

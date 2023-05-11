@@ -77,7 +77,7 @@ function PaymentMethod({handlerOnSubmit, customer}) {
   return <Col className='p-0'>
           {
               creditCards.data.data.map(item => {
-               return  <Row onClick={(e) => { onClickSelectCard(e); }}  key={item.id} className={`row-content ${value === item.cardNumber ? "select_card" : ""} d-flex justify-content-between align-items-center`}>
+               return  <Row onClick={(e) => { onClickSelectCard(e); }}  key={item.id} className={`row-content-payment ${value === item.cardNumber ? "select_card" : ""} d-flex justify-content-between align-items-center`}>
                     <Col lg='2'  md='2' sm='2'>
                         <img src={item.cardNumber[0] === "5" ? masterCard : item.cardNumber[0] === "4" ? visa :crediCard } alt="" />
                     </Col>
@@ -95,7 +95,7 @@ function PaymentMethod({handlerOnSubmit, customer}) {
            <div className='section_subtitle mt-3'>New Card:</div>
         <Form onSubmit={onSubmitChange} >
         {/* card holder name */}
-         <Row className='row-content p-2 d-flex justify-content-between mt-2'>
+         <Row className='row-content-payment p-2 d-flex justify-content-between mt-2'>
               <Col className='input-title'>Card holder name</Col>
               <Col lg='12'>
                 <Input defaultValue={cardForm.cardHolderName}  onChange={onChangeCardInfo} name="cardHolderName" onFocus={(e) => refreshFormInput(e.target.parentElement.parentElement.parentElement)}  type='text' />
@@ -106,7 +106,7 @@ function PaymentMethod({handlerOnSubmit, customer}) {
          
          <Row className='d-flex justify-content-between mt-3'>
             <Col lg='7' md='7'>
-                <Row className='row-content'>
+                <Row className='row-content-payment'>
                     <Col className='input-title'>Card number</Col>
                     <Col lg='12'>
                         <Input  defaultValue={cardForm.cardNumber}  onChange={onChangeCardInfo} name='cardNumber' type='text' />
@@ -114,7 +114,7 @@ function PaymentMethod({handlerOnSubmit, customer}) {
                 </Row>
             </Col>
              <Col lg='3' md='3'>
-             <Row className='row-content'>
+             <Row className='row-content-payment'>
                     <Col  className='input-title text-center'>Exp. date</Col>
                     <Col lg='12'>
                         <Input defaultValue={cardForm.expDate} onChange={onChangeCardInfo} name='expDate' type='text' />
@@ -122,7 +122,7 @@ function PaymentMethod({handlerOnSubmit, customer}) {
                 </Row>
              </Col>
              <Col lg='2' md='2'>
-             <Row className='row-content'>
+             <Row className='row-content-payment'>
                     <Col className='input-title text-center'>CVV</Col>
                     <Col lg='12'>
                         <Input  id='cvv'  defaultValue={cardForm.cvv} onChange={onChangeCardInfo} name='cvv' type='text' />
