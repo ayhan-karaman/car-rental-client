@@ -68,6 +68,7 @@ function Login() {
                         <Form onSubmit={formik.handleSubmit} >
                             <h3 className='lead text-center fw-normal mb-5'> Sign in</h3>
                            <FormGroup className='mb-3'>
+                           
                                 <Input 
                                 type='text'
                                 name='emailOrUserName' 
@@ -85,14 +86,9 @@ function Login() {
                                 }
                                 placeholder='Enter a valid email address or user name'
                                 />
-                                {
-                                  !!formik.errors.emailOrUserName &&
-                                  (!!formik.touched.emailOrUserName || !!formik.dirty.emailOrUserName) &&
-                                  <FormFeedback  typeof='invalid'>
-                                       {formik.errors.emailOrUserName}
-                                  </FormFeedback>
-                                }
+                                
                            </FormGroup>
+                           
                            <FormGroup className='mb-3'>
                            <InputGroup>
                                       <Input 

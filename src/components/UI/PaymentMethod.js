@@ -1,77 +1,107 @@
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import masterCard from '../../assets/images/masterCard.png'
 import visa from '../../assets/images/visa.png'
 import crediCard from '../../assets/images/card.png';
 import '../../styles/PaymentMethod.css'
-import { Col, Form, Input, FormFeedback, Row } from "reactstrap";
+import { Col, Form, Input,  Row } from "reactstrap";
 import {Link} from "react-router-dom"
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify'
-import { getByCustomerIdCreditCards } from '../../services/creditCardService';
+import { getByCustomerIdCreditCards, newCreditCard } from '../../services/creditCardService';
+import { useFormik } from 'formik';
+
+import validationSchema from '../../validations/paymentValidation';
+import { expriyFormat } from '../../tool';
+
 
 
 function PaymentMethod({handlerOnSubmit, customer}) {
-    const initialValue = {cardNumber:'', expDate:'', cardHolderName:'', customerId:'', cvv:''};
+
     const [value, setValue] = useState("");
     const [selectedCard, setSelectedCard] = useState(false);
-    const [cardForm, setCardForm] = useState(initialValue)
-
-
     const creditCards = useQuery('creditCards', () =>(getByCustomerIdCreditCards(customer.data.userId)))
+    const initialValue = {cardNumber:'', expDate:'', cardHolderName:'', customerId:'', cvv:''};
+
+     // Use formik initial function     
+    const formik = useFormik({
+         initialValues:initialValue,
+         onSubmit:async () =>{
+            if(selectedCard)
+            {
+                formik.resetForm()
+                formik.initialValues = initialValue
+                setValue("");
+                handlerOnSubmit()
+                return;
+            }
+          
+            
+            if(window.confirm("Kartı kayıt etmek istermisiniz"))
+            {
+                        try {
+                            const response = await newCreditCard({
+                                customerId:customer.data.userId,
+                                cardHolderName:formik.values.cardHolderName,
+                                cardNumber:formik.values.cardNumber,
+                                expDate:formik.values.expDate,
+
+                            })
+                            toast.success(response.message)
+                            handlerOnSubmit();
+                            formik.resetForm()
+                        } catch (error) {
+                            toast.error(error.response.data.message)
+                            formik.resetForm()
+                        }
+            }else{
+                setValue("");
+                handlerOnSubmit()
+                toast.info("Tercihiniz üzerine kartınızın kaydı oluşturulmadı.", {
+                     autoClose:3000
+                })
+                formik.resetForm()
+                return;
+            }
+            
+         },  
+         onReset:() =>{
+            setValue("");
+            setSelectedCard(false);
+         },
+         validationSchema
+        
+         
+    })
     
+  
+
+    // Selected Card Function
     const onClickSelectCard = (e) => {
             
            if(e.target.tagName === 'INPUT')
            {
-                 
-                 refreshFormInput(e.target.parentElement.parentElement.parentElement.lastChild);
-                 const card = creditCards.data.data.find(x  => x.cardNumber === e.target.value) ;
-                 setCardForm({
-                       cardNumber:card.cardNumber, 
-                       expDate:card.expDate, 
-                       cardHolderName:card.cardHolderName,
-                       cvv:''
-                 })
-                 setSelectedCard(true)
-                 return setValue(e.target.value); 
+                   
+                formik.resetForm()
+                const card = creditCards.data.data.find(x  => x.cardNumber === e.target.value) ;
+                formik.setValues ({
+                    cardNumber:card.cardNumber.replaceAll(' ', ''), 
+                    expDate:card.expDate, 
+                    cardHolderName:card.cardHolderName,
+                    cvv:''
+                })
+                setSelectedCard(true)
+                return setValue(e.target.value); 
            }
     }
 
-   const onChangeCardInfo = (e) =>{
-    
-            setCardForm({...cardForm, [e.target.name]: e.target.value})
-   }
-   
-   const refreshFormInput = (event) => 
-   {
-            
-            setValue("");
-            event.reset()
-            setCardForm({...initialValue});
-            setSelectedCard(false);
-
-   }
   
+ 
 
-    const onSubmitChange = (e)=>{
-            e.preventDefault()
-            if(selectedCard)
-            {
-                
-                e.target.reset()
-                setCardForm({...initialValue})
-                setValue("");
-               return toast.success("kayıtlı kart ile ödeme yapıldı")
-            }
-            e.target.reset()
-                setCardForm({...initialValue})
-                setValue("");
-            return toast.success("yeni kart ile ödeme yapıldı")
-            
-    }
-    
-    
-  
+
+
+
+
+
     if(creditCards.isLoading) return;
    
   return <Col className='p-0'>
@@ -93,23 +123,55 @@ function PaymentMethod({handlerOnSubmit, customer}) {
         
 
            <div className='section_subtitle mt-3'>New Card:</div>
-        <Form onSubmit={onSubmitChange} >
+        <Form onSubmit={formik.handleSubmit} >
         {/* card holder name */}
          <Row className='row-content-payment p-2 d-flex justify-content-between mt-2'>
               <Col className='input-title'>Card holder name</Col>
-              <Col lg='12'>
-                <Input defaultValue={cardForm.cardHolderName}  onChange={onChangeCardInfo} name="cardHolderName" onFocus={(e) => refreshFormInput(e.target.parentElement.parentElement.parentElement)}  type='text' />
+              <Col style={{zIndex:"999 !important"}} lg='12' >
+                <Input 
+                value={formik.values.cardHolderName}  
+                placeholder='Name Surname'
+                onChange={formik.handleChange} name="cardHolderName" 
+                onFocus={formik.resetForm}  
+                type='text' 
+                onBlur={formik.handleBlur}
+                invalid={
+                    !!formik.errors.cardHolderName &&
+                    (!!formik.touched.cardHolderName || !!formik.dirty.cardHolderName)
+                  }
+                  valid={
+                    !formik.errors.cardHolderName &&
+                    (!!formik.touched.cardHolderName || !!formik.dirty.cardHolderName)
+                  }
+                />
+                 
               </Col>
          </Row>
 
          {/* card number, exp. date, cvv input */}
          
          <Row className='d-flex justify-content-between mt-3'>
-            <Col lg='7' md='7'>
+            <Col lg='6' md='6'>
                 <Row className='row-content-payment'>
                     <Col className='input-title'>Card number</Col>
                     <Col lg='12'>
-                        <Input  defaultValue={cardForm.cardNumber}  onChange={onChangeCardInfo} name='cardNumber' type='text' />
+                        <Input  
+                        value={formik.values.cardNumber}  
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        invalid={
+                            !!formik.errors.cardNumber &&
+                            (!!formik.touched.cardNumber || !!formik.dirty.cardNumber)
+                          }
+                          valid={
+                            !formik.errors.cardNumber &&
+                            (!!formik.touched.cardNumber || !!formik.dirty.cardNumber)
+                          }        
+                        name='cardNumber' 
+                        type='text' 
+                        placeholder='0000 0000 0000 0000'
+                        />
+                     
                     </Col>
                 </Row>
             </Col>
@@ -117,15 +179,51 @@ function PaymentMethod({handlerOnSubmit, customer}) {
              <Row className='row-content-payment'>
                     <Col  className='input-title text-center'>Exp. date</Col>
                     <Col lg='12'>
-                        <Input defaultValue={cardForm.expDate} onChange={onChangeCardInfo} name='expDate' type='text' />
+                        <Input 
+                        value={expriyFormat(formik.values.expDate)} 
+                        onChange={formik.handleChange}
+                        max={5}
+                        placeholder='MM/YY'
+                        name='expDate' 
+                        type='text'
+                        onBlur={formik.handleBlur}
+                        
+                        invalid={
+                            !!formik.errors.expDate &&
+                            (!!formik.touched.expDate || !!formik.dirty.expDate)
+                          }
+                        //   valid={
+                        //     !formik.errors.expDate &&
+                        //     (!!formik.touched.expDate || !!formik.dirty.expDate)
+                        //   }  
+                        />
+                     
                     </Col>
                 </Row>
              </Col>
-             <Col lg='2' md='2'>
+             <Col lg='3' md='3'>
              <Row className='row-content-payment'>
                     <Col className='input-title text-center'>CVV</Col>
                     <Col lg='12'>
-                        <Input  id='cvv'  defaultValue={cardForm.cvv} onChange={onChangeCardInfo} name='cvv' type='text' />
+                        <Input  
+                        id='cvv'  
+                        value={formik.values.cvv} 
+                        onChange={formik.handleChange} 
+                        name='cvv' 
+                        placeholder='000'
+                        min={3}
+                        max={3}
+                        type='text' 
+                        onBlur={formik.handleBlur}
+                        invalid={
+                            !!formik.errors.cvv &&
+                            (!!formik.touched.cvv || !!formik.dirty.cvv)
+                          }
+                        //   valid={
+                        //     !formik.errors.cvv &&
+                        //     (!!formik.touched.cvv || !!formik.dirty.cvv)
+                        //   }  
+                        />
                        
                     </Col>
                     
@@ -133,7 +231,7 @@ function PaymentMethod({handlerOnSubmit, customer}) {
                
              </Col>
          </Row>
-          <button  className='btn pay_btn' >Pay Now  💵</button>
+          <button type='submit' onSubmit={handlerOnSubmit} className='btn pay_btn' >Pay Now  💵</button>
      </Form>
   </Col>
   

@@ -8,30 +8,37 @@ import BookingForm from '../components/UI/BookingForm'
 import PaymentMethod from '../components/UI/PaymentMethod'
 import { useAuth } from '../contexts/AuthContext';
 import { totalRentDayResult } from '../tool'
+import { newRental } from '../services/rentalService'
+import { toast } from 'react-toastify'
 
 function CarDetails() {
   const { car_id } = useParams();
   const { loggedIn, user } = useAuth();
   const location = useLocation();
-  
   const [bookingForm, setBookingForm] = useState({});
   
   
   useEffect(() => {
-
+    
   }, [])
 
-  const handlerOnSubmit = () => {
-         
+  const handlerOnSubmit = async () => {
+        console.log(totalRentDayResult(bookingForm.rentEndDate, bookingForm.rentStartDate))
         const rentalInfo = {
               customerId:user?.data.userId,
-              modelId:car_id,
-              totalRentDay:totalRentDayResult(bookingForm.rentEndDate, bookingForm.rentStartDate) * data.data.dailyPrice,
-              rentStartDate:bookingForm.rentStartDate,
-              rentEndDate:bookingForm.rentEndDate
-
+              modelId:Number(car_id),
+              totalRentDay:totalRentDayResult(bookingForm.rentEndDate, bookingForm.rentStartDate),
+              rentStartDate:new Date(bookingForm.rentStartDate).toISOString(),
+              rentEndDate:new Date(bookingForm.rentEndDate).toISOString(),
+              returnDate:null
         }
-        console.log(rentalInfo)
+         try {
+              const response = await newRental({...rentalInfo})
+              return toast.info(response.message)
+
+         } catch (error) {
+             return toast.error(error.response.data.message)
+         }
   }
   
   const {isLoading, data} = useQuery(["car", car_id], ()=>(getByIdCar(car_id)))
@@ -110,13 +117,13 @@ function CarDetails() {
                        <Col lg='7' className='mt-5'>
                           <div className="payment_method_info mt-5">
                               <h5 className='mb-4 fw-bold'>Booking Information</h5>
-                              <BookingForm  bookingForm={bookingForm} dailyPrice={data.data.dailyPrice} setBookingForm={setBookingForm}/>
+                              <BookingForm bookingForm={bookingForm} dailyPrice={data.data.dailyPrice} setBookingForm={setBookingForm}/>
                           </div>
                         </Col>
                         <Col lg='5' className='mt-5'>
                           <div className="payment_info mt-5">
                               <h5 className='mb-4 fw-bold'>Payment Information</h5>
-                              <PaymentMethod customer={user} handlerOnSubmit={handlerOnSubmit}/>
+                              <PaymentMethod customer={user}  handlerOnSubmit={handlerOnSubmit}/>
                           </div>
                         </Col>
                     </>

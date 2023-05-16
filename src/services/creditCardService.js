@@ -5,3 +5,9 @@ export const getByCustomerIdCreditCards = async(customerId) => {
    
     return data;
  }
+
+ export const newCreditCard = async(creditCard) => {
+    const {data} = await axios.post(`${process.env.REACT_APP_BASE_API_ENDPOINT}/CreditCards/new-card`, creditCard);
+   
+    return data;
+ }

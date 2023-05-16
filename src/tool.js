@@ -31,6 +31,16 @@ export const totalRentDayResult = (rentEndDate, rentStartDate) => {
         return numberOfDays;
 }
 
+export const expriyFormat = (value) => {
+  const expdate = value;
+  const expDateFormatter =
+  expdate.replace(/\//g, "").substring(0, 2) +
+  (expdate.length > 2 ? "/" : "") +
+  expdate.replace(/\//g, "").substring(2, 4);
+
+  return expDateFormatter;
+}
+
 
 export const socialLinks = [
     {

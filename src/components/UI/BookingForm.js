@@ -3,73 +3,84 @@ import { Form, FormGroup } from 'reactstrap'
 import '../../styles/BookingForm.css'
 import { useAuth } from '../../contexts/AuthContext'
 import { initialDate, totalRentDayResult } from '../../tool';
+import { useFormik } from 'formik';
 
-function BookingForm({bookingForm, setBookingForm, dailyPrice}) {
+function BookingForm({setBookingForm, dailyPrice}) {
     const {user} = useAuth();
     const [hidden, setHidden] = useState(false)
     const [totalRent, setTotalRent] = useState(0);
-    
-    useEffect(() => {
-         setBookingForm({
+    const formik = useFormik({
+        initialValues:{
             firstName:user.data.firstName, 
             lastName:user.data.lastName, 
             email:user.data.email,
             rentStartDate:initialDate(1),
-            rentEndDate:initialDate(2)
-         })
-    }, [])
+            rentEndDate:initialDate(2),
+            
+        },
+        onSubmit:() => {
+              setBookingForm({...formik.values})
+        }
+    })
+
+
+    useEffect(() => {
+        
+        setBookingForm({...formik.values})
+       
+    }, [formik.values, setBookingForm])
     
     const totalRentDay = (e) => {
-        const start = e.target.name === "rentStartDate" ? e.target.value : bookingForm.rentStartDate;
-        const end = e.target.name === "rentEndDate" ? e.target.value : bookingForm.rentEndDate;
+        const start = e.target.name === "rentStartDate" ? e.target.value : formik.values.rentStartDate;
+        const end = e.target.name === "rentEndDate" ? e.target.value : formik.values.rentEndDate;
         const res =  totalRentDayResult(end, start) * dailyPrice;
         setTotalRent(res)
         setHidden(true);
     }
 
-    const onChangeValue = (e) =>{
-        setBookingForm({...bookingForm, [e.target.name]: e.target.value})
-    }
+
     
 
-  return <Form >
+  return <Form onSubmit={formik.handleSubmit}>
         <FormGroup className='booking_form d-inline-block me-4 mb-4'>
             <input type="text" 
             placeholder='First Name' 
-            onChange={onChangeValue} 
-            defaultValue={bookingForm.firstName} 
+            onChange={formik.handleChange} 
+            defaultValue={formik.values.firstName} 
             name="firstName" id="" />
         </FormGroup>
         <FormGroup className='booking_form d-inline-block ms-1 mb-4'>
             <input type="text" 
             placeholder='Last Name'
-            onChange={onChangeValue} 
-            defaultValue={bookingForm.lastName} 
+            onChange={formik.handleChange} 
+            defaultValue={formik.values.lastName} 
             name="lastName" id="" />
         </FormGroup>
 
         <FormGroup className='booking_form d-inline-block me-4 mb-4'>
             <input type="email" 
-            defaultValue={bookingForm.email} 
-            onChange={onChangeValue}
+            defaultValue={formik.values.email} 
+            onChange={formik.handleChange}
             placeholder='Email' name="email" id="" />
         </FormGroup>
         <FormGroup className='booking_form d-inline-block me-4 mb-4'>
             <input 
             type="datetime-local" 
-            onChange={onChangeValue}
+            onChange={formik.handleChange}
             onChangeCapture={totalRentDay}
+            onBlur={totalRentDay}
             min={initialDate(1)} 
-            defaultValue={bookingForm.rentStartDate} 
+            defaultValue={formik.values.rentStartDate} 
             placeholder='Rent Start Date Time' 
             name="rentStartDate" id="" />
         </FormGroup>
         <FormGroup className='booking_form d-inline-block ms-1 mb-4'>
             <input type="datetime-local" 
             min={initialDate(2)} 
-            onChange={onChangeValue}
+            onChange={formik.handleChange}
             onChangeCapture={totalRentDay}
-            defaultValue={bookingForm.rentEndDate} 
+            onBlur={totalRentDay}
+            defaultValue={formik.values.rentEndDate} 
             placeholder='Rent End Date Time' 
             className='date' name="rentEndDate" 
             id="" />
@@ -89,32 +100,4 @@ function BookingForm({bookingForm, setBookingForm, dailyPrice}) {
 
 export default BookingForm
 
-/*<FormGroup className='booking_form d-inline-block ms-1 mb-4'>
-            <input type="text" placeholder='Phone Number' name="" id="" />
-        </FormGroup>
 
-        <FormGroup className='booking_form d-inline-block me-4 mb-4'>
-            <input type="text" placeholder='From Address' name="from_address" id="" />
-        </FormGroup>
-        <FormGroup className='booking_form d-inline-block ms-1 mb-4'>
-            <input type="text" placeholder='To Address' name="to_address" id="" />
-        </FormGroup>
-
-        <FormGroup className='booking_form d-inline-block me-4 mb-4'>
-             <select>
-                 <option value="1 person">1 Person</option>
-                 <option value="2 person">2 Person</option>
-                 <option value="3 person">3 Person</option>
-                 <option value="4 person">4 Person</option>
-                 <option value="5+ person">5+ Person</option>
-             </select>
-        </FormGroup>
-        <FormGroup className='booking_form d-inline-block ms-1 mb-4'>
-             <select>
-                 <option value="1 luggage">1 Luggage</option>
-                 <option value="2 luggage">2 Luggage</option>
-                 <option value="3 luggage">3 Luggage</option>
-                 <option value="4 luggage">4 Luggage</option>
-                 <option value="5+ luggage">5+ Luggage</option>
-             </select>
-        </FormGroup> */

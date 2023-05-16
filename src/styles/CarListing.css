@@ -1,7 +1,7 @@
 .btn{
      
-     outline: none;
-     border: none;
+     outline: none !important;
+     border: none !important;
 }
 .clear_btn{
     background: #f9a826 !important;
@@ -11,5 +11,5 @@
 }
 
 .filtered_btn{
-    background: #008080;
+    background: #008080 !important;
 }

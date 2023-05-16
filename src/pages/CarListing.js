@@ -149,7 +149,7 @@ function CarListing() {
                    </Col>
                    { 
                         data?.data?.map((item) => {
-                         return <CarItem item={item} key={item.modelId} />
+                         return <CarItem  item={item} key={item.modelId} />
                        }) 
                    }
                 </Row>

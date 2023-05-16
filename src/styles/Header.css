@@ -100,7 +100,7 @@
 
 .header_btn a{
     display: flex;
-    justify-content:end;
+    justify-content:flex-end;
     align-items: center;
     column-gap: .4rem;
     text-decoration: none;
