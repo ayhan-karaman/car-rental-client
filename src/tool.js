@@ -1,3 +1,4 @@
+
 export const dateFormat = (dateTime) => {
     var d =  new Date(dateTime);
     var day = d.getDate();
@@ -24,11 +25,12 @@ export const initialDate = (day=0 ) =>{
         return today.toISOString().slice(0, 10) +" " + new Date().toLocaleTimeString('tr-TR').slice(0, 5)
 }
 export const totalRentDayResult = (rentEndDate, rentStartDate) => {
-        var date1 = new Date(rentEndDate.toString());
-        var date2 = new Date(rentStartDate.toString());
-        var difference = date1.getTime() - date2.getTime();
-        var numberOfDays = Math.ceil(difference / (1000 * 3600 * 24)); 
-        return numberOfDays;
+      
+        const date1 = new Date(rentEndDate);
+        const date2 = new Date(rentStartDate);
+        const diffTime = Math.abs(date2 - date1)
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+        return diffDays;
 }
 
 export const expriyFormat = (value) => {
@@ -60,3 +62,6 @@ export const socialLinks = [
       icon: "ri-twitter-line",
     },
   ];
+
+
+ 

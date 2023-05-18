@@ -19,6 +19,7 @@
     "reactstrap": "^9.1.6",
     "remixicon": "^2.5.0",
     "slick-carousel": "^1.8.1",
+    "sweetalert2": "^11.7.5",
     "toastr": "^2.1.4",
     "web-vitals": "^2.1.4",
     "yup": "^1.1.1"

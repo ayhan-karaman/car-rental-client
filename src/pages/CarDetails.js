@@ -23,11 +23,13 @@ function CarDetails() {
   }, [])
 
   const handlerOnSubmit = async () => {
+        console.log(bookingForm.rentEndDate)
         console.log(totalRentDayResult(bookingForm.rentEndDate, bookingForm.rentStartDate))
         const rentalInfo = {
               customerId:user?.data.userId,
               modelId:Number(car_id),
-              totalRentDay:totalRentDayResult(bookingForm.rentEndDate, bookingForm.rentStartDate),
+              totalRentDay:totalRentDayResult(bookingForm.rentEndDate.substring(0, bookingForm.rentEndDate.indexOf(' ')),
+               bookingForm.rentStartDate.substring(0, bookingForm.rentStartDate.indexOf(' '))),
               rentStartDate:new Date(bookingForm.rentStartDate).toISOString(),
               rentEndDate:new Date(bookingForm.rentEndDate).toISOString(),
               returnDate:null
